@@ -1,0 +1,106 @@
+[
+  {
+    "model": "folders.Folder",
+    "pk": 1,
+    "fields": {
+      "name": "default",
+      "info": "default folder",
+      "icon": "default icon"
+    }
+  },
+  {
+    "model": "folders.Folder",
+    "pk": 2,
+    "fields": {
+      "name": "Engineering Team",
+      "info": "default folder",
+      "icon": "default icon"
+    }
+  },
+  {
+    "model": "documents.Document",
+    "pk": 1,
+    "fields": {
+      "name": "employee policy",
+      "type": "pdf",
+      "folder": "1",
+      "size": "1 mb"
+    }
+  },
+  {
+    "model": "documents.Document",
+    "pk": 2,
+    "fields": {
+      "name": "leave policy",
+      "type": "pdf",
+      "folder": "1",
+      "size": "1 mb"
+    }
+  },
+  {
+    "model": "documents.Document",
+    "pk": 3,
+    "fields": {
+      "name": "work policy",
+      "type": "pdf",
+      "folder": "1",
+      "size": "1 mb"
+    }
+  },
+  {
+    "model": "documents.Document",
+    "pk": 4,
+    "fields": {
+      "name": "Engineering General",
+      "type": "pdf",
+      "folder": "2",
+      "size": "2 mb"
+    }
+  },
+  {
+    "model": "documents.Document",
+    "pk": 5,
+    "fields": {
+      "name": "Engineering SOP's",
+      "type": "pdf",
+      "folder": "1",
+      "size": "1 mb"
+    }
+  },
+  {
+    "model": "topics.Topic",
+    "pk": 1,
+    "fields": {
+      "name": "policy",
+      "short_description": "policy short desc",
+      "long_description": "policy long description"
+    }
+  },
+  {
+    "model": "topics.Topic",
+    "pk": 2,
+    "fields": {
+      "name": "engineering",
+      "short_description": "engineering short desc",
+      "long_description": "engineering long description"
+    }
+  },
+  {
+    "model": "topics.Topic",
+    "pk": 3,
+    "fields": {
+      "name": "spekit love",
+      "short_description": "spekit short desc",
+      "long_description": "spekit long description"
+    }
+  },
+  {
+    "model": "topics.Topic",
+    "pk": 4,
+    "fields": {
+      "name": "employee",
+      "short_description": "employee short desc",
+      "long_description": "employee long description"
+    }
+  }
+]
