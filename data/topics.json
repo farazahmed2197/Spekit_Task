@@ -1,6 +1,6 @@
 [
   {
-    "model": "topics.FolderTopic",
+    "model": "folders.FolderTopic",
     "pk": 1,
     "fields": {
         "topic" : "1",
@@ -8,7 +8,7 @@
     }
   },
   {
-    "model": "topics.FolderTopic",
+    "model": "folders.FolderTopic",
     "pk": 2,
     "fields": {
         "topic" : "3",
@@ -16,7 +16,7 @@
     }
   },
   {
-    "model": "topics.FolderTopic",
+    "model": "folders.FolderTopic",
     "pk": 3,
     "fields": {
         "topic" : "2",
@@ -24,7 +24,7 @@
     }
   },
   {
-    "model": "topics.FolderTopic",
+    "model": "folders.FolderTopic",
     "pk": 4,
     "fields": {
         "topic" : "4",
@@ -33,7 +33,7 @@
   },
 
   {
-    "model": "topics.DocumentTopic",
+    "model": "documents.DocumentTopic",
     "pk": 1,
     "fields": {
         "document" : "1",
@@ -41,7 +41,7 @@
     }
   },
   {
-    "model": "topics.DocumentTopic",
+    "model": "documents.DocumentTopic",
     "pk": 2,
     "fields": {
         "document" : "2",
@@ -49,7 +49,7 @@
     }
   },
   {
-    "model": "topics.DocumentTopic",
+    "model": "documents.DocumentTopic",
     "pk": 3,
     "fields": {
         "document" : "1",
@@ -57,7 +57,7 @@
     }
   },
   {
-    "model": "topics.DocumentTopic",
+    "model": "documents.DocumentTopic",
     "pk": 4,
     "fields": {
         "document" : "3",
@@ -65,7 +65,7 @@
     }
   },
   {
-    "model": "topics.DocumentTopic",
+    "model": "documents.DocumentTopic",
     "pk": 4,
     "fields": {
         "document" : "3",
@@ -73,7 +73,7 @@
     }
   },
   {
-    "model": "topics.DocumentTopic",
+    "model": "documents.DocumentTopic",
     "pk": 5,
     "fields": {
         "document" : "3",
@@ -81,7 +81,7 @@
     }
   },
   {
-    "model": "topics.DocumentTopic",
+    "model": "documents.DocumentTopic",
     "pk": 6,
     "fields": {
         "document" : "4",
@@ -89,7 +89,7 @@
     }
   },
   {
-    "model": "topics.DocumentTopic",
+    "model": "documents.DocumentTopic",
     "pk": 7,
     "fields": {
         "document" : "4",
@@ -97,7 +97,7 @@
     }
   },
   {
-    "model": "topics.DocumentTopic",
+    "model": "documents.DocumentTopic",
     "pk": 8,
     "fields": {
         "document" : "5",
@@ -105,7 +105,7 @@
     }
   },
   {
-    "model": "topics.DocumentTopic",
+    "model": "documents.DocumentTopic",
     "pk": 9,
     "fields": {
         "document" : "5",
@@ -113,7 +113,7 @@
     }
   },
   {
-    "model": "topics.DocumentTopic",
+    "model": "documents.DocumentTopic",
     "pk": 9,
     "fields": {
         "document" : "5",

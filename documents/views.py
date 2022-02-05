@@ -1,7 +1,3 @@
-from django.shortcuts import render
-
-# Create your views here.
-
 from documents.models import Document
 from rest_framework import viewsets
 from rest_framework import permissions
