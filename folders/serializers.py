@@ -1,7 +1,5 @@
-import imp
 from rest_framework import serializers
 from folders.models import Folder
-from topics.models import Topic
 
 
 class FolderSerializer(serializers.Serializer):
@@ -10,18 +8,16 @@ class FolderSerializer(serializers.Serializer):
     name = serializers.CharField()
     info = serializers.CharField()
     icon = serializers.CharField()
-    # topic = serializers.ListField(child=serializers.CharField())
     created_at = serializers.CharField(read_only=True)
     updated_at = serializers.CharField(read_only=True)
+    topics = serializers.ListField(write_only=True, child=serializers.IntegerField(min_value=0))
     
     def create(self, validated_data):
         print("Data: ", validated_data)
-        topic = Topic.objects.get(1)
-        data = ""
         
-        if topic:
-            data = Folder.objects.create(**validated_data)
-            
+        data = Folder.objects.create(name = validated_data["name"], info=validated_data["info"], icon=validated_data["icon"])
+        data.topics.set(validated_data["topics"])
+        
         return data
 
     def update(self, instance, validated_data):

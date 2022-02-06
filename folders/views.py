@@ -1,85 +1,85 @@
-import imp
-from unicodedata import name
-from django.shortcuts import render
 from folders.models import Folder, FolderTopic
 from folders.serializers import FolderSerializer
 from topics.models import Topic
-from rest_framework import viewsets
-from rest_framework import permissions
-from rest_framework.decorators import action
 from rest_framework.response import Response
-from django.views.decorators.csrf import csrf_exempt
+from rest_framework.parsers import JSONParser
+from rest_framework.views import APIView
 from django.http import HttpResponse, JsonResponse
 from django.core import serializers
 
 from documents.models import Document
 
-# Create your views here.
-@csrf_exempt
-def folder_list(request):
-    """
-    List all code folders, or create a new folder.
-    """
-    if request.method == 'GET':
+class FolderList(APIView):
+
+    def get(self, request, format=None):
+        
         folder_topic = FolderTopic.objects.filter()
-        folders = Folder.objects.values()
-        # serializer = FolderSerializer(folders, many=True)
-        folder = Folder.objects.get(name="default")
+        folders = Folder.objects.all()
+        serializer = FolderSerializer(folders, many=True)
+        folder = Folder.objects.get(name="client feedback1")
         topic = Topic.objects.get(name="policy")
         
         folder_topic = folder.topics.all()
         
-        Document.objects.filter()
-        jData = list(folders)
-        folderTopicData = serializers.serialize('json', folder_topic)
-        return JsonResponse(folderTopicData, safe=False)
+        document_data = Document.objects.filter(folder=folder, topics__name ="policy")
+      
+        data = serializers.serialize('json', folders)
+        return JsonResponse(serializer.data, safe=False, status=200)
 
-    elif request.method == 'POST':
+    def post(self, request, format=None):
+        # Create object with serializer along with topics
         data = JSONParser().parse(request)
         serializer = FolderSerializer(data=data)
+        
         if serializer.is_valid():
             serializer.save()
             return JsonResponse(serializer.data, status=201)
-        return JsonResponse(serializer.errors, status=400)
+        else:
+            return JsonResponse(serializer.errors, status=400)
 
-@csrf_exempt
-def folder_detail(request, pk):
+class TopicFolderList(APIView):
+    
     """
-    Retrieve, update or delete a code folder.
+    Returns the folders of provided topic name
     """
-    try:
-        folder = Folder.objects.get(pk=pk)
-    except Folder.DoesNotExist:
-        return HttpResponse(status=404)
 
-    if request.method == 'GET':
+    def get(self, request, format=None):
+        # Get the topic name from query param and retreive the topic object
+        topicName = request.GET.get('topic', '')
+        try:
+        
+            folders = Folder.objects.filter(topics__name = topicName)
+            serializer = FolderSerializer(folders, many=True)
+        
+            return JsonResponse(serializer.data, safe=False)
+        except Exception as e:
+            print(e)
+            return JsonResponse([], safe=False, status=201)
+
+class FolderDetail(APIView):
+    """
+    Retrieve, update or delete a folder instance.
+    """
+    def get_object(self, pk):
+        try:
+            return Folder.objects.get(pk=pk)
+        except Folder.DoesNotExist:
+            raise Http404
+
+    def get(self, request, pk, format=None):
+        folder = self.get_object(pk)
         serializer = FolderSerializer(folder)
-        return JsonResponse(serializer.data)
+        return Response(serializer.data)
 
-    elif request.method == 'PUT':
-        data = JSONParser().parse(request)
-        serializer = FolderSerializer(folder, data=data)
+    def put(self, request, pk, format=None):
+        folder = self.get_object(pk)
+        serializer = FolderSerializer(folder, data=request.data)
         if serializer.is_valid():
             serializer.save()
-            return JsonResponse(serializer.data)
-        return JsonResponse(serializer.errors, status=400)
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-    elif request.method == 'DELETE':
+    def delete(self, request, pk, format=None):
+        folder = self.get_object(pk)
         folder.delete()
-        return HttpResponse(status=204)
-    
-    
-# @api_view(['POST'])
-# def forget_password_view(request):
-#     data = {}
-#     try:
-#         if request.method == 'POST':
-#             serializer = ForgetPasswordSerializer(data=request.data)
-#             if serializer.is_valid():
-#                 email = request.data['email']
-#                 try:
-#                     user = User.objects.get(email=email, is_deleted=0)
-#                 except Exception as e:
-#                     data['status'] = -2
-#                     data['developer_message'] = "Invalid Email Address"
-#                     return JsonResponse(data, status=http.HTTPStatus.UNAUTHORIZED)
+        return Response(status=status.HTTP_204_NO_CONTENT)

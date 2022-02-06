@@ -66,14 +66,6 @@
   },
   {
     "model": "documents.DocumentTopic",
-    "pk": 4,
-    "fields": {
-        "document" : "3",
-        "topic" : "4"
-    }
-  },
-  {
-    "model": "documents.DocumentTopic",
     "pk": 5,
     "fields": {
         "document" : "3",
@@ -114,9 +106,17 @@
   },
   {
     "model": "documents.DocumentTopic",
-    "pk": 9,
+    "pk": 10,
     "fields": {
         "document" : "5",
+        "topic" : "4"
+    }
+  },
+  {
+    "model": "documents.DocumentTopic",
+    "pk": 11,
+    "fields": {
+        "document" : "3",
         "topic" : "4"
     }
   }

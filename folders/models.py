@@ -6,7 +6,7 @@ from topics.models import Topic
 
 # Create your models here.
 class Folder(models.Model):
-    name = models.CharField(max_length=30)
+    name = models.CharField(max_length=30, unique=True)
     info = models.CharField(max_length=30)
     icon = models.CharField(max_length=30)
     topics = models.ManyToManyField(Topic, through='FolderTopic')
