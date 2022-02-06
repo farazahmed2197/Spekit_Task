@@ -17,10 +17,13 @@ from django.contrib import admin
 from django.urls import include, path
 from folders import urls as folderUrls
 from documents import urls as documentUrls
+from topics import urls as topicsUrls
 
 urlpatterns = [
+    # custom app routes
     path('folders/', include(folderUrls)),
     path('documents/', include(documentUrls)),
+    path('topics/', include(topicsUrls)),
     
     path('admin/', admin.site.urls),
 ]

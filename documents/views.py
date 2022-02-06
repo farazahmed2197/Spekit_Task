@@ -1,11 +1,10 @@
-from folders.models import Folder, FolderTopic
 from .serializers import DocumentSerializer
-from topics.models import Topic
 from rest_framework.response import Response
 from rest_framework.parsers import JSONParser
 from rest_framework.views import APIView
 from rest_framework import status
 from django.http import JsonResponse
+from django.http import Http404
 
 from documents.models import Document
 
@@ -14,15 +13,8 @@ class DocumentList(APIView):
 
     def get(self, request, format=None):
         
-        folder_topic = FolderTopic.objects.filter()
         documents = Document.objects.all()
         serializer = DocumentSerializer(documents, many=True)
-        folder = Folder.objects.get(name="client feedback1")
-        topic = Topic.objects.get(name="policy")
-        
-        folder_topic = folder.topics.all()
-        
-        document_data = Document.objects.filter(folder=folder, topics__name ="policy")
         
         return JsonResponse(serializer.data, safe=False, status=200)
 
@@ -40,7 +32,7 @@ class DocumentList(APIView):
 class TopicDocumentList(APIView):
     
     """
-    Returns the documents of provided topic name
+    Returns the documents of provided topic name and folder name
     """
 
     def get(self, request, format=None):
@@ -48,13 +40,18 @@ class TopicDocumentList(APIView):
         topicName = request.GET.get('topic', '')
         folderName = request.GET.get('folder', '')
         
+        kwargs = {}
+        
         try:
-            documents = ""
-            if folderName == "":
-                documents = Document.objects.filter(topics__name = topicName)
-            else:
-                documents = Document.objects.filter(folder__name=folderName, topics__name = topicName)
+            # prepare arguments for query
+            if topicName != '':
+                kwargs['topics__name'] = topicName
+            
+            if folderName != '':
+                kwargs['folder__name'] = folderName
                 
+            documents = Document.objects.filter(**kwargs)
+            # Serialize the data
             serializer = DocumentSerializer(documents, many=True)
         
             return JsonResponse(serializer.data, safe=False)

@@ -1,29 +1,20 @@
-from folders.models import Folder, FolderTopic
+from folders.models import Folder
 from folders.serializers import FolderSerializer
-from topics.models import Topic
 from rest_framework.response import Response
 from rest_framework.parsers import JSONParser
 from rest_framework.views import APIView
-from django.http import HttpResponse, JsonResponse
-from django.core import serializers
+from django.http import JsonResponse
+from django.http import Http404
 
 from documents.models import Document
 
 class FolderList(APIView):
 
     def get(self, request, format=None):
-        
-        folder_topic = FolderTopic.objects.filter()
+   
         folders = Folder.objects.all()
         serializer = FolderSerializer(folders, many=True)
-        folder = Folder.objects.get(name="client feedback1")
-        topic = Topic.objects.get(name="policy")
-        
-        folder_topic = folder.topics.all()
-        
-        document_data = Document.objects.filter(folder=folder, topics__name ="policy")
-      
-        data = serializers.serialize('json', folders)
+    
         return JsonResponse(serializer.data, safe=False, status=200)
 
     def post(self, request, format=None):

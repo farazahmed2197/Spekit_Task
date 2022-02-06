@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from .models import Document
+from folders.models import Folder
 
 class DocumentSerializer(serializers.Serializer):
     
@@ -15,9 +16,11 @@ class DocumentSerializer(serializers.Serializer):
     def create(self, validated_data):
         print("Data: ", validated_data)
         
+        folder = Folder.objects.get(pk=validated_data["folder"])
+        
         data = Document.objects.create(name = validated_data["name"], 
                                      type=validated_data["type"], 
-                                     folder=validated_data["folder"],
+                                     folder=folder,
                                      size=validated_data["size"]
                                      )
         
